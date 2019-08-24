@@ -34,7 +34,7 @@ SELECT left(drg_definition,3) as drg_id,
 		medicare_payments,
 		year
 FROM inpatientutilization
-
+ 
 
 select 
 	t1.provider_id,
@@ -43,7 +43,7 @@ select
 	t1."2015 Provider Discharges",
 	t1."2016 Provider Discharges",
 	t1."YOY Percent Change"
-from (select 
+from (select distinct
 	provider_id,
 	provider_state,
 	sum(case when year=2016 then discharges else null end) as "2015 Provider Discharges",
