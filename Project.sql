@@ -35,9 +35,16 @@ SELECT left(drg_definition,3) as drg_id,
 		year
 FROM inpatientutilization
 
+
 select 
-	provider_id,
+	t1.provider_id,
 	provider_name,
+	t1.provider_state,
+	t1."2015 Provider Discharges",
+	t1."2016 Provider Discharges",
+	t1."YOY Percent Change"
+from (select 
+	provider_id,
 	provider_state,
 	sum(case when year=2016 then discharges else null end) as "2015 Provider Discharges",
 	sum(case when year=2015 then discharges else null end) as "2016 Provider Discharges",
@@ -46,5 +53,5 @@ select
 from inpatientutilizationclean
 group by
 	provider_id,
-	provider_name,
-	provider_state
+	provider_state) as t1
+inner join providerid as provider on t1.provider_id=provider.provider_id
